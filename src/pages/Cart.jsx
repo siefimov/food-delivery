@@ -1,11 +1,24 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
+
+import { getData } from '../api/foodApi';
+import { endpoints } from '../api/foodApi';
 
 import Input from '../components/Input';
 import CartFoodItem from '../components/CartFoodItem';
 import Button from '../components/Button';
-import { food } from '../api/api';
 
 const Cart = () => {
+  const [food, setFood] = useState([]);
+
+  useEffect(() => {
+    const fetchFood = async () => {
+      const response = await getData(endpoints.food);
+      setFood(response);
+    };
+
+    fetchFood();
+  }, []);
+
   return (
     <>
       <div className='flex gap-5 p-5'>
@@ -27,7 +40,7 @@ const Cart = () => {
             ))}
           </ul>
 
-          <div className='flex items-center justify-end my-5 gap-5'>
+          <div className='my-5 flex items-center justify-end gap-5'>
             <p>Total price: 999</p>
             <Button title='Submit' />
           </div>

@@ -21,17 +21,17 @@ export const food = [
     price: 10,
   },
   {
-    id: 3,
+    id: 4,
     imageUrl:
-      'https://img.freepik.com/free-photo/ketogenic-low-carbs-diet-food-selection-white-wall_155003-27734.jpg?size=626&ext=jpg&ga=GA1.1.984371692.1685031293&semt=sph',
+      'https://img.freepik.com/premium-photo/adjarian-khachapuri-with-cheese-spinach-tomatoes-herbs-gray-blue-board-georgian-cuisine-flat-lay-top-view_211786-335.jpg?size=626&ext=jpg&ga=GA1.1.984371692.1685031293&semt=sph',
     title: 'Some Big Roll',
     price: 10,
   },
   {
-    id: 3,
+    id: 5,
     imageUrl:
-      'https://img.freepik.com/free-photo/ketogenic-low-carbs-diet-food-selection-white-wall_155003-27734.jpg?size=626&ext=jpg&ga=GA1.1.984371692.1685031293&semt=sph',
-    title: 'Some Big Roll',
+      'https://img.freepik.com/free-photo/fresh-green-vegetables-green-string-bag-yellow-background-flat-lay_169016-23382.jpg?size=626&ext=jpg&ga=GA1.1.984371692.1685031293&semt=sph',
+    title: 'Fresh Vegetables',
     price: 10,
   },
   {
