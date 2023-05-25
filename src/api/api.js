@@ -42,3 +42,5 @@ export const food = [
     price: 10,
   },
 ];
+
+export const shopItem = ['Mc Donny', 'CFK', 'Mr Cat', 'RocketYou'];

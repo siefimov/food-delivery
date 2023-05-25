@@ -1,13 +1,13 @@
 import React from 'react';
 
 import ShopSideBar from '../components/ShopSideBar';
-import FoodList from '../components/FoodList';
+import ShopFoodList from '../components/ShopFoodList';
 
 const Shop = () => {
   return (
     <div className='m-5 flex gap-5 '>
       <ShopSideBar />
-      <FoodList />
+      <ShopFoodList />
     </div>
   );
 };

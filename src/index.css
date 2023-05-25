@@ -8,9 +8,6 @@
   font-weight: 400;
 }
 
-#root {
-  overflow: hidden;
-}
 body{
-  overflow: hidden;
+  /* overflow: hidden; */
 }

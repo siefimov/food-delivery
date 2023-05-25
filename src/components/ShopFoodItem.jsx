@@ -2,9 +2,9 @@ import React from 'react';
 
 import Button from './Button';
 
-const FoodItem = ({ imageUrl, title, price }) => {
+const ShopFoodItem = ({ imageUrl, title, price }) => {
   return (
-    <li className='w-full max-w-sm rounded-xl border p-5'>
+    <li className='w-full h-fit max-w-sm rounded-xl border p-5 bg-white'>
       <div className='mb-5 flex h-[200px] justify-center rounded'>
         <img src={imageUrl} alt='image' className='h-full overflow-hidden rounded' />
       </div>
@@ -15,4 +15,4 @@ const FoodItem = ({ imageUrl, title, price }) => {
   );
 };
 
-export default FoodItem;
+export default ShopFoodItem;
