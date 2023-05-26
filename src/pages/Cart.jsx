@@ -6,11 +6,14 @@ import Input from '../components/Input';
 import CartFoodItem from '../components/CartFoodItem';
 import Button from '../components/Button';
 
+import { addOrder } from '../features/orderSlice';
+import { endpoints } from '../features/orderSlice';
+
 const Cart = () => {
   const dispatch = useDispatch();
   const totalPrc = useSelector((state) => state.cart.cart);
   console.log(totalPrc);
-  const totalPrice = 12
+  const totalPrice = 12;
 
   const handleRemoveFromCart = (id) => {
     dispatch(removeFromCart(id));
@@ -22,7 +25,16 @@ const Cart = () => {
     dispatch(clear());
   };
 
+  const handleSubmit = (cart) => {
+    const order = {
+      endpoint: endpoints.orders,
+      body: cart,
+    };
+    dispatch(addOrder(order));
+  };
+
   const cartFood = useSelector((state) => state.cart.cart);
+  console.log(cartFood);
 
   return (
     <>
@@ -53,7 +65,7 @@ const Cart = () => {
             <Button title='Clear Cart' onClick={handleClearCart} />
             <div className='my-5 flex items-center justify-end gap-5'>
               <p className='text-2xl '>Total price: ${totalPrice}</p>
-              <Button title='Submit' />
+              <Button title='Submit' onClick={() => handleSubmit(cartFood)} />
             </div>
           </div>
         </div>

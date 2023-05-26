@@ -64,5 +64,54 @@
       "brand": "RocketYou"
     }
   ],
-  "brands": ["Mc Donny", "CFK", "Mr Cat", "RocketYou"]
+  "brands": [
+    "Mc Donny",
+    "CFK",
+    "Mr Cat",
+    "RocketYou"
+  ],
+  "orders": [
+    {
+      "endpoint": "/orders",
+      "body": [
+        {
+          "id": "2023-05-26T22:24:36.053Z",
+          "food": {
+            "id": 1,
+            "imageUrl": "https://img.freepik.com/free-photo/traditional-ukrainian-russian-borscht-red-soup-bowl-top-view_2829-11970.jpg?w=1060&t=st=1685032120~exp=1685032720~hmac=cd627da7fb22a7352aef161e1de65d9e7ece9415ed1963eab9e53107094436a0",
+            "title": "Big Bug Crash",
+            "price": 15,
+            "brand": "Mc Donny"
+          }
+        }
+      ],
+      "id": 2
+    },
+    {
+      "endpoint": "/orders",
+      "body": [
+        {
+          "id": "2023-05-26T22:24:36.053Z",
+          "food": {
+            "id": 1,
+            "imageUrl": "https://img.freepik.com/free-photo/traditional-ukrainian-russian-borscht-red-soup-bowl-top-view_2829-11970.jpg?w=1060&t=st=1685032120~exp=1685032720~hmac=cd627da7fb22a7352aef161e1de65d9e7ece9415ed1963eab9e53107094436a0",
+            "title": "Big Bug Crash",
+            "price": 15,
+            "brand": "Mc Donny"
+          }
+        },
+        {
+          "id": "2023-05-26T22:25:22.495Z",
+          "food": {
+            "id": 13,
+            "imageUrl": "https://img.freepik.com/free-photo/penne-pasta-tomato-sauce-with-chicken-tomatoes-wooden-table_2829-19744.jpg?size=626&ext=jpg&ga=GA1.1.984371692.1685031293&semt=sph",
+            "title": "Pasta",
+            "price": 14,
+            "brand": "RocketYou"
+          }
+        }
+      ],
+      "id": 3
+    }
+  ]
 }
