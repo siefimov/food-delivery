@@ -11,11 +11,8 @@ export const getData = async (endpoint) => {
   try {
     const response = await axios.get(URL + endpoint);
 
-    console.log(response.data);
-    
     return response.data;
   } catch (error) {
     return error;
   }
 };
-
