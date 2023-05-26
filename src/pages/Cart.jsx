@@ -1,23 +1,28 @@
-import { useState, useEffect } from 'react';
-
-import { getData } from '../api/foodApi';
-import { endpoints } from '../api/foodApi';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeFromCart, clearCart } from '../features/cartSlice';
+import { decrease, clear } from '../features/counterSlice';
 
 import Input from '../components/Input';
 import CartFoodItem from '../components/CartFoodItem';
 import Button from '../components/Button';
 
 const Cart = () => {
-  const [food, setFood] = useState([]);
+  const dispatch = useDispatch();
+  const totalPrc = useSelector((state) => state.cart.cart);
+  console.log(totalPrc);
+  const totalPrice = 12
 
-  useEffect(() => {
-    const fetchFood = async () => {
-      const response = await getData(endpoints.food);
-      setFood(response);
-    };
+  const handleRemoveFromCart = (id) => {
+    dispatch(removeFromCart(id));
+    dispatch(decrease());
+  };
 
-    fetchFood();
-  }, []);
+  const handleClearCart = () => {
+    dispatch(clearCart());
+    dispatch(clear());
+  };
+
+  const cartFood = useSelector((state) => state.cart.cart);
 
   return (
     <>
@@ -29,20 +34,27 @@ const Cart = () => {
           <Input type='text' id='address' title='Address' />
         </div>
         <div className='mb-24 h-[100vh] basis-[60%] overflow-y-scroll rounded border p-5'>
-          <ul className='flex flex-col gap-8'>
-            {food.map((food, index) => (
-              <CartFoodItem
-                key={index}
-                imageUrl={food.imageUrl}
-                title={food.title}
-                price={food.price}
-              />
-            ))}
+          <ul className='mb-8 flex flex-col gap-8'>
+            {cartFood.length > 0
+              ? cartFood.map((food, index) => (
+                  <CartFoodItem
+                    key={index}
+                    imageUrl={food.food.imageUrl}
+                    title={food.food.title}
+                    price={food.food.price}
+                    onClick={() => handleRemoveFromCart(food.id)}
+                    food={food.price}
+                  />
+                ))
+              : 'Your Cart is empty.'}
           </ul>
 
-          <div className='my-5 flex items-center justify-end gap-5'>
-            <p>Total price: 999</p>
-            <Button title='Submit' />
+          <div className='flex items-center justify-between'>
+            <Button title='Clear Cart' onClick={handleClearCart} />
+            <div className='my-5 flex items-center justify-end gap-5'>
+              <p className='text-2xl '>Total price: ${totalPrice}</p>
+              <Button title='Submit' />
+            </div>
           </div>
         </div>
       </div>
