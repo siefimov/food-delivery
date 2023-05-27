@@ -15,6 +15,7 @@ const initialState = {
 
 export const addOrder = createAsyncThunk('orders/addOrder', async (body) => {
   try {
+    
     const response = await axios.post(URL + endpoints.orders, body, {
       headers: {
         'Content-Type': 'application/json',

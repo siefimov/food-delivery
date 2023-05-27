@@ -1,15 +1,15 @@
-import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState, useEffect, memo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { getData } from '../api/foodApi';
 import { endpoints } from '../api/foodApi';
 
 import ShopFoodItem from './ShopFoodItem';
 import { increase, setTotalPrice } from '../features/counterSlice';
 import { addToCart } from '../features/cartSlice';
 
+import { getFood, filterFood } from '../features/foodSlice';
+
 const ShopFoodList = ({ selectedBrand }) => {
-  const [food, setFood] = useState([]);
   const [selectedFood, setSelectedFood] = useState([]);
   console.log(selectedFood);
 
@@ -19,29 +19,25 @@ const ShopFoodList = ({ selectedBrand }) => {
     setSelectedFood((selectedFood) => [...selectedFood, foodItem]);
     dispatch(increase());
     dispatch(addToCart(foodItem));
-    dispatch(setTotalPrice(foodItem))
+    dispatch(setTotalPrice(foodItem));
   };
 
+  const filteredFood = useSelector((state) => state.food.filteredFood);
+  console.log(filteredFood);
+  // useEffect(()=>{
+  //   dispatch(getFood(endpoints.food))
+  // },[])
+
   useEffect(() => {
-    const fetchFood = async () => {
-      if (selectedBrand) {
-        const response = await getData(endpoints.food);
-        const filteredFood = response.filter((item) => item.brand === selectedBrand);
-
-        setFood(filteredFood);
-      } else {
-        setFood([]);
-      }
-    };
-
-    fetchFood();
-  }, [selectedBrand]);
+    dispatch(getFood(endpoints.food));
+    dispatch(filterFood(selectedBrand));
+  }, [dispatch, selectedBrand]);
 
   return (
     <div className='flex h-[90vh] basis-[75%] justify-center overflow-y-auto rounded border bg-slate-50 px-12 py-12'>
-      {food.length > 0 ? (
+      {filteredFood.length > 0 ? (
         <ul className='flex flex-wrap justify-center gap-14 '>
-          {food?.map((foodItem, index) => (
+          {filteredFood?.map((foodItem, index) => (
             <ShopFoodItem
               key={index}
               imageUrl={foodItem.imageUrl}
@@ -53,7 +49,7 @@ const ShopFoodList = ({ selectedBrand }) => {
           ))}
         </ul>
       ) : (
-        <p className='mx-auto'>Please, choose the Shop!</p>
+        <p className='mx-auto text-3xl'>Please, choose the Shop!</p>
       )}
     </div>
   );

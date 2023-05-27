@@ -4,21 +4,27 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setTotalPrice } from '../features/counterSlice';
 import Input from './Input';
 
-const CartFoodItem = ({ imageUrl, title, price, onClick, food }) => {
-  const [value, setValue] = useState(1);
-
+const CartFoodItem = ({ imageUrl, title, price, onClick, setQty }) => {
   const dispatch = useDispatch();
 
+  const [qtyItems, setQtyItems] = useState(1);
+  const [totalValue, setTotalValue] = useState(price);
+
   const handleChange = (event) => {
-    setValue(event.target.value);
-    dispatch(setTotalPrice(food));
+    const newQty = event.target.value;
+    setTotalPrice(totalValue);
+    setQtyItems(newQty);
+    setQty(newQty)
   };
 
   const increaseValue = () => {
-    setValue((value) => (value += 1));
+    setQtyItems((qtyItems) => (qtyItems += 1));
+    setTotalValue((prevValue) => prevValue + price);
   };
+
   const decreaseValue = () => {
-    setValue((value) => (value -= 1));
+    setQtyItems((qtyItems) => (qtyItems -= 1));
+    setTotalValue((prevValue) => prevValue - price);
   };
 
   return (
@@ -37,13 +43,13 @@ const CartFoodItem = ({ imageUrl, title, price, onClick, food }) => {
         <h2 className='mb-5 px-5 text-center font-bold'>{title}</h2>
         <p className='px-5 text-center'>Price: ${price}</p>
         <p className='px-5 text-center'>
-          Total: <span className='font-bold'>{price * value}</span>
+          Total: <span className='font-bold'>{totalValue}</span>
         </p>
         <div className='relative'>
-          <Input type='text' id='number' value={value} onChange={handleChange} />
+          <Input type='text' id='number' value={qtyItems} onChange={handleChange} />
           <span
             className='absolute right-3 top-5 h-6 w-6 cursor-pointer rounded-[50%] border bg-slate-200 px-2'
-            onClick={() => increaseValue()}
+            onClick={increaseValue}
           >
             +
           </span>

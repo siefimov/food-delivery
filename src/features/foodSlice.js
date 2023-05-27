@@ -10,6 +10,7 @@ export const endpoints = {
 
 const initialState = {
   food: [],
+  filteredFood: []
 };
 
 export const getFood = createAsyncThunk('food/getFood', async (endpoint) => {
@@ -28,7 +29,7 @@ const foodSlice = createSlice({
   reducers: {
     filterFood: (state, action) => {
       const filteredFood = state.food.filter((item) => item.brand === action.payload);
-      state.food = filteredFood;
+      state.filteredFood = filteredFood;
     },
   },
   extraReducers: (builder) => {
