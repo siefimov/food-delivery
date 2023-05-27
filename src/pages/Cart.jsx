@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { removeFromCart, clearCart } from '../features/cartSlice';
+import { removeFromCart, clearCart, getCarts } from '../features/cartSlice';
 import { decrease, clear } from '../features/counterSlice';
 import { addOrder } from '../features/orderSlice';
 
@@ -9,11 +9,10 @@ import CartFoodItem from '../components/CartFoodItem';
 import Button from '../components/Button';
 import UserForm from '../components/UserForm';
 
-
 const Cart = () => {
   const dispatch = useDispatch();
   const cartFood = useSelector((state) => state.cart.cart);
-  
+
   const [qtyItems, setQtyItems] = useState({});
   const [total, setTotal] = useState(0);
 
@@ -57,6 +56,10 @@ const Cart = () => {
     dispatch(clear());
   };
 
+  useEffect(() => {
+    dispatch(getCarts());
+  }, []);
+
   // const handleUpdateQtyItems = (id, qty) => {
   //   setQtyItems((prevQtyItems) => ({ ...prevQtyItems, [id]: qty }));
   // };
@@ -64,16 +67,16 @@ const Cart = () => {
   const handleUpdateQtyItems = (id, qty) => {
     setQtyItems((prevQtyItems) => {
       const updatedQtyItems = { ...prevQtyItems, [id]: qty };
-      
+
       // Calculate the updated total based on the new quantities
       const updatedTotal = cartFood.reduce((total, food) => {
         const foodQty = updatedQtyItems[food.id] || 1;
         return total + food.price * foodQty;
       }, 0);
-  
+
       // Update the total state
       setTotal(updatedTotal);
-  
+
       return updatedQtyItems;
     });
   };
@@ -93,7 +96,7 @@ const Cart = () => {
           address={user.address}
           onChange={handleUserData}
         />
-       
+
         <div className='mb-24 h-[100vh] basis-[60%] overflow-y-scroll rounded border p-5'>
           <h2 className='mb-4 text-center text-2xl'>Shopping Cart</h2>
           <ul className='mb-8 flex flex-col gap-8'>

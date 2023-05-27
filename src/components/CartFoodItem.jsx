@@ -14,7 +14,7 @@ const CartFoodItem = ({ imageUrl, title, price, onClick, setQty }) => {
     const newQty = event.target.value;
     setTotalPrice(totalValue);
     setQtyItems(newQty);
-    setQty(newQty)
+    setQty(newQty);
   };
 
   const increaseValue = () => {

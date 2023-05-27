@@ -16,8 +16,8 @@ const ShopSideBar = ({ setSelectedBrand }) => {
   }, [dispatch]);
 
   const handleSelectShop = (shop) => {
-    dispatch(selectShop(shop));
     setSelectedBrand(shop);
+    dispatch(selectShop(shop));
     updateSelectedBrand(shop);
   };
 
@@ -29,7 +29,7 @@ const ShopSideBar = ({ setSelectedBrand }) => {
           key={index}
           title={shop}
           onClick={() => handleSelectShop(shop)}
-          isSelected={selectedBrand === shop}
+          isSelected={selectedBrand}
         />
       ))}
     </div>
