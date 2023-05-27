@@ -1,17 +1,16 @@
-import { useState, useEffect, memo } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { endpoints } from '../api/foodApi';
 
 import ShopFoodItem from './ShopFoodItem';
-import { increase, setTotalPrice } from '../features/counterSlice';
+import { increase, upTotalOrderSum } from '../features/counterSlice';
 import { addToCart } from '../features/cartSlice';
 
-import { getFood, filterFood } from '../features/foodSlice';
+import { getFood, filterFood, getFilteredFood } from '../features/foodSlice';
 
 const ShopFoodList = ({ selectedBrand }) => {
   const [selectedFood, setSelectedFood] = useState([]);
-  console.log(selectedFood);
 
   const dispatch = useDispatch();
 
@@ -19,14 +18,14 @@ const ShopFoodList = ({ selectedBrand }) => {
     setSelectedFood((selectedFood) => [...selectedFood, foodItem]);
     dispatch(increase());
     dispatch(addToCart(foodItem));
-    dispatch(setTotalPrice(foodItem));
+    dispatch(upTotalOrderSum(foodItem.price));
   };
 
   const filteredFood = useSelector((state) => state.food.filteredFood);
-  console.log(filteredFood);
-  // useEffect(()=>{
-  //   dispatch(getFood(endpoints.food))
-  // },[])
+
+  useEffect(() => {
+    dispatch(getFilteredFood());
+  }, []);
 
   useEffect(() => {
     dispatch(getFood(endpoints.food));
@@ -44,6 +43,7 @@ const ShopFoodList = ({ selectedBrand }) => {
               title={foodItem.title}
               brand={foodItem.brand}
               price={foodItem.price}
+              qty={foodItem.qty}
               onClick={() => handleSelectedFood(foodItem)}
             />
           ))}

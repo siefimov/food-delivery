@@ -16,11 +16,18 @@ export const counterSlice = createSlice({
     clear: (state) => {
       state.addedFoodToCart = 0;
     },
-    setTotalPrice: (state, action) => {
-      state.totalPrice = state.totalPrice + action.payload.price
+    upTotalOrderSum: (state, action) => {
+      state.totalPrice = state.totalPrice + action.payload;
+    },
+    downTotalOrderSum: (state, action) => {
+      state.totalPrice = state.totalPrice - action.payload;
+    },
+    clearTotalOrderSum: (state) => {
+      state.totalPrice = 0;
     },
   },
 });
 
-export const { increase, decrease, clear, setTotalPrice } = counterSlice.actions;
+export const { increase, decrease, clear, upTotalOrderSum, downTotalOrderSum, clearTotalOrderSum } =
+  counterSlice.actions;
 export const counterReducer = counterSlice.reducer;

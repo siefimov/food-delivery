@@ -1,30 +1,33 @@
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { setTotalPrice } from '../features/counterSlice';
+import { upTotalOrderSum, downTotalOrderSum } from '../features/counterSlice';
+
 import Input from './Input';
 
-const CartFoodItem = ({ imageUrl, title, price, onClick, setQty }) => {
-  const dispatch = useDispatch();
-
+const CartFoodItem = ({ imageUrl, title, price, onClick, qty, setQty }) => {
   const [qtyItems, setQtyItems] = useState(1);
   const [totalValue, setTotalValue] = useState(price);
 
+  const dispatch = useDispatch();
+  const orderSum = useSelector((state) => state.counter.totalPrice);
+  console.log(orderSum);
+
   const handleChange = (event) => {
     const newQty = event.target.value;
-    setTotalPrice(totalValue);
     setQtyItems(newQty);
-    setQty(newQty);
   };
 
   const increaseValue = () => {
     setQtyItems((qtyItems) => (qtyItems += 1));
     setTotalValue((prevValue) => prevValue + price);
+    dispatch(upTotalOrderSum(price));
   };
 
   const decreaseValue = () => {
     setQtyItems((qtyItems) => (qtyItems -= 1));
     setTotalValue((prevValue) => prevValue - price);
+    dispatch(downTotalOrderSum(price));
   };
 
   return (
@@ -41,9 +44,9 @@ const CartFoodItem = ({ imageUrl, title, price, onClick, setQty }) => {
       </div>
       <div className='flex flex-col justify-end px-5'>
         <h2 className='mb-5 px-5 text-center font-bold'>{title}</h2>
-        <p className='px-5 text-center'>Price: ${price}</p>
+        <p className='px-5 text-center'>Price per Item: ${price}</p>
         <p className='px-5 text-center'>
-          Total: <span className='font-bold'>{totalValue}</span>
+          Total: <span className='font-bold'>${totalValue}</span>
         </p>
         <div className='relative'>
           <Input type='text' id='number' value={qtyItems} onChange={handleChange} />

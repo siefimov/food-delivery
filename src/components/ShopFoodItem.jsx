@@ -2,7 +2,7 @@ import React from 'react';
 
 import Button from './Button';
 
-const ShopFoodItem = ({ imageUrl, title, price, brand, onClick }) => {
+const ShopFoodItem = ({ imageUrl, title, price, brand, qty, onClick }) => {
   return (
     <li className='h-fit w-full max-w-xs rounded-xl border bg-white p-5'>
       <div className='mb-5 flex h-[200px] justify-center rounded'>

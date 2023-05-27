@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { removeFromCart, clearCart, getCarts } from '../features/cartSlice';
-import { decrease, clear } from '../features/counterSlice';
+import { decrease, clear, clearTotalOrderSum, downTotalOrderSum } from '../features/counterSlice';
 import { addOrder } from '../features/orderSlice';
 
 import CartFoodItem from '../components/CartFoodItem';
@@ -12,9 +12,12 @@ import UserForm from '../components/UserForm';
 const Cart = () => {
   const dispatch = useDispatch();
   const cartFood = useSelector((state) => state.cart.cart);
+  const orderSum = useSelector((state) => state.counter.totalPrice);
 
   const [qtyItems, setQtyItems] = useState({});
   const [total, setTotal] = useState(0);
+
+  console.log({ qtyItems });
 
   const [user, setUser] = useState({
     name: '',
@@ -30,14 +33,17 @@ const Cart = () => {
     });
   };
 
-  const handleRemoveFromCart = (id) => {
+  const handleRemoveFromCart = (id, price) => {
     dispatch(removeFromCart(id));
     dispatch(decrease());
+    dispatch(downTotalOrderSum(price));
   };
 
   const handleClearCart = () => {
     dispatch(clearCart());
     dispatch(clear());
+    dispatch(clearTotalOrderSum());
+    setUser({ name: '', email: '', tel: '', address: '' });
   };
 
   const handleSubmit = (cart) => {
@@ -54,15 +60,9 @@ const Cart = () => {
     dispatch(addOrder(order));
     dispatch(clearCart());
     dispatch(clear());
+    dispatch(clearTotalOrderSum());
+    setUser({ name: '', email: '', tel: '', address: '' });
   };
-
-  useEffect(() => {
-    dispatch(getCarts());
-  }, []);
-
-  // const handleUpdateQtyItems = (id, qty) => {
-  //   setQtyItems((prevQtyItems) => ({ ...prevQtyItems, [id]: qty }));
-  // };
 
   const handleUpdateQtyItems = (id, qty) => {
     setQtyItems((prevQtyItems) => {
@@ -71,7 +71,7 @@ const Cart = () => {
       // Calculate the updated total based on the new quantities
       const updatedTotal = cartFood.reduce((total, food) => {
         const foodQty = updatedQtyItems[food.id] || 1;
-        return total + food.price * foodQty;
+        return total + food.food.price * foodQty;
       }, 0);
 
       // Update the total state
@@ -81,11 +81,10 @@ const Cart = () => {
     });
   };
 
-  // const total = cartFood.reduce((accumulator, food) => {
-  //   const qty = qtyItems[food.id] || 1;
-  //   return accumulator + food.food.price * qty;
-  // }, 0);
-
+  useEffect(() => {
+    dispatch(getCarts());
+  }, []);
+  
   return (
     <>
       <div className='flex gap-5 p-5'>
@@ -107,7 +106,7 @@ const Cart = () => {
                     imageUrl={food.food.imageUrl}
                     title={food.food.title}
                     price={food.food.price}
-                    onClick={() => handleRemoveFromCart(food.id)}
+                    onClick={() => handleRemoveFromCart(food.id, food.food.price)}
                     food={food.price}
                     setQty={(qty) => handleUpdateQtyItems(food.id, qty)}
                     qty={qtyItems[food.id] || 1}
@@ -119,9 +118,9 @@ const Cart = () => {
           <div className='flex items-center justify-between'>
             <Button title='Clear Cart' onClick={handleClearCart} />
             <div className='my-5 flex items-center justify-end gap-5'>
-              <p className='text-2xl '>Total: {total}</p>
-              <Button title='Submit' onClick={() => handleSubmit(cartFood)} />
+              <p className='text-2xl '>Total: ${orderSum}</p>
             </div>
+            <Button title='Submit' onClick={() => handleSubmit(cartFood)} />
           </div>
         </div>
       </div>
