@@ -24,7 +24,7 @@ const ShopFoodList = ({ selectedBrand }) => {
   const filteredFood = useSelector((state) => state.food.filteredFood);
 
   useEffect(() => {
-    dispatch(getFood(endpoints.food));
+    dispatch(getFood());
     dispatch(filterFood(selectedBrand));
   }, [dispatch, selectedBrand]);
 

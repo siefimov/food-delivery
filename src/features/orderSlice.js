@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+import { db } from '../api/db';
 const URL = 'http://localhost:3000';
 
 export const endpoints = {
@@ -10,12 +11,11 @@ export const endpoints = {
 };
 
 const initialState = {
-  orders: [],
+  orders: db.orders,
 };
 
 export const addOrder = createAsyncThunk('orders/addOrder', async (body) => {
   try {
-    
     const response = await axios.post(URL + endpoints.orders, body, {
       headers: {
         'Content-Type': 'application/json',
@@ -40,5 +40,5 @@ const orderSlice = createSlice({
   },
 });
 
-// export const { filterFood } = orderSlice.actions;
+// export const { filterFood, addOrder } = orderSlice.actions;
 export default orderSlice.reducer;

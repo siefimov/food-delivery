@@ -12,7 +12,7 @@ const ShopSideBar = ({ setSelectedBrand }) => {
   const shops = useSelector((state) => state.shops.shops);
 
   useEffect(() => {
-    dispatch(getShops(endpoints.brands));
+    dispatch(getShops());
   }, [dispatch]);
 
   const handleSelectShop = (shop) => {
