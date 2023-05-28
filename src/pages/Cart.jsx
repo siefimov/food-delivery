@@ -8,6 +8,8 @@ import { addOrder } from '../features/orderSlice';
 import CartFoodItem from '../components/CartFoodItem';
 import Button from '../components/Button';
 import UserForm from '../components/UserForm';
+import Map from '../components/Map';
+import MapContainer from '../components/MapContainer';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -79,6 +81,13 @@ const Cart = () => {
     });
   };
 
+  const handleAddressChange = (event) => {
+    setUser({
+      ...user,
+      address: event.target.value,
+    });
+  };
+
   useEffect(() => {
     dispatch(getCarts());
   }, []);
@@ -86,13 +95,17 @@ const Cart = () => {
   return (
     <>
       <div className='flex gap-5 p-5'>
-        <UserForm
-          name={user.name}
-          tel={user.tel}
-          email={user.email}
-          address={user.address}
-          onChange={handleUserData}
-        />
+        <div className='flex flex-col'>
+          {/* <Map /> */}
+          <MapContainer address={user.address} handleAddressChange={handleAddressChange}/>
+          <UserForm
+            name={user.name}
+            tel={user.tel}
+            email={user.email}
+            address={user.address}
+            onChange={handleUserData}
+          />
+        </div>
 
         <div className='mb-24 h-[100vh] basis-[60%] overflow-y-scroll rounded border p-5'>
           <h2 className='mb-4 text-center text-2xl'>Shopping Cart</h2>
@@ -120,8 +133,9 @@ const Cart = () => {
             </div>
             <Button title='Submit' onClick={() => handleSubmit(cartFood)} />
           </div>
-        </div>
+        </div>        
       </div>
+      
     </>
   );
 };
