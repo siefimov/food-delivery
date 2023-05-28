@@ -17,8 +17,6 @@ const Cart = () => {
   const [qtyItems, setQtyItems] = useState({});
   const [total, setTotal] = useState(0);
 
-  console.log({ qtyItems });
-
   const [user, setUser] = useState({
     name: '',
     email: '',
@@ -84,7 +82,7 @@ const Cart = () => {
   useEffect(() => {
     dispatch(getCarts());
   }, []);
-  
+
   return (
     <>
       <div className='flex gap-5 p-5'>

@@ -7,7 +7,7 @@ import ShopFoodItem from './ShopFoodItem';
 import { increase, upTotalOrderSum } from '../features/counterSlice';
 import { addToCart } from '../features/cartSlice';
 
-import { getFood, filterFood, getFilteredFood } from '../features/foodSlice';
+import { getFood, filterFood } from '../features/foodSlice';
 
 const ShopFoodList = ({ selectedBrand }) => {
   const [selectedFood, setSelectedFood] = useState([]);
@@ -22,10 +22,6 @@ const ShopFoodList = ({ selectedBrand }) => {
   };
 
   const filteredFood = useSelector((state) => state.food.filteredFood);
-
-  useEffect(() => {
-    dispatch(getFilteredFood());
-  }, []);
 
   useEffect(() => {
     dispatch(getFood(endpoints.food));

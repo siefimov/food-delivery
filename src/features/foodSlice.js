@@ -27,18 +27,11 @@ const foodSlice = createSlice({
   name: 'food',
   initialState,
   reducers: {
-    
     filterFood: (state, action) => {
       const filteredFood = state.food.filter((item) => item.brand === action.payload);
       state.filteredFood = filteredFood;
       localStorage.setItem('food', JSON.stringify([...state.filteredFood]));
     },
-
-    getFilteredFood: (state)=>{
-      const result = JSON.parse(localStorage.getItem('food'));
-      state.filteredFood = [...result];
-      
-    }
   },
 
   extraReducers: (builder) => {
