@@ -1,9 +1,6 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice } from '@reduxjs/toolkit';
 
 import { db } from '../api/db';
-
-const URL = 'http://localhost:3000';
 
 export const endpoints = {
   food: '/food',
@@ -14,16 +11,6 @@ const initialState = {
   food: db.food,
   filteredFood: [],
 };
-
-// export const getFood = createAsyncThunk('food/getFood', async (endpoint) => {
-//   try {
-//     const response = await axios.get(URL + endpoint);
-
-//     return response.data;
-//   } catch (error) {
-//     return error;
-//   }
-// });
 
 const foodSlice = createSlice({
   name: 'food',

@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { getShops, selectShop } from '../features/shopSlice';
 import ShopBrand from './ShopBrand';
-import { endpoints } from '../api/foodApi';
 
 const ShopSideBar = ({ setSelectedBrand }) => {
   const [selectedBrand, updateSelectedBrand] = useState('');
