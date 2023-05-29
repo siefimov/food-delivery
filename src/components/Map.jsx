@@ -1,17 +1,60 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
+import { GoogleMap, Marker, LoadScript } from '@react-google-maps/api';
 
-const Map = () => {
+const API_KEY = import.meta.env.VITE_API_KEY;
+
+const MapContainer = ({ address, handleAddressChange }) => {
+  // const [address, setAddress] = useState('');
+  const [coordinates, setCoordinates] = useState(null);
+
+  const containerStyle = {
+    width: '500px',
+    height: '350px',
+  };
+
+  const handleGeocode = async () => {
+    try {
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+          address
+        )}&key=${API_KEY}`
+      );
+      const data = await response.json();
+      if (data.status === 'OK' && data.results.length > 0) {
+        const location = data.results[0].geometry.location;
+        setCoordinates({ lat: location.lat, lng: location.lng });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (address) {
+      handleGeocode();
+    }
+  }, [address]);
+
   return (
-    <iframe
-      src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d81370.73498247663!2d30.368013381958!3d50.40690383233703!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4cf375c96ef5b%3A0x2d2146f90493f0d0!2sMcDonald%60s!5e0!3m2!1suk!2sua!4v1685257975447!5m2!1suk!2sua'
-      width='500'
-      height='350'
-      style={{ border: '0' }}
-      allowfullscreen=''
-      loading='lazy'
-      referrerpolicy='no-referrer-when-downgrade'
-    ></iframe>
+    <div className='my-5'>
+      <input
+        type='text'
+        value={address}
+        onChange={handleAddressChange}
+        className='w-full border pl-2'
+        placeholder='Enter address...'
+      />
+      <LoadScript googleMapsApiKey={API_KEY}>
+        <GoogleMap
+          mapContainerStyle={containerStyle}
+          center={coordinates || { lat: 50.407027725284344, lng: 30.52044047388431 }}
+          zoom={coordinates ? 14 : 10}
+        >
+          {coordinates && <Marker position={coordinates} />}
+        </GoogleMap>
+      </LoadScript>
+    </div>
   );
 };
 
-export default Map;
+export default MapContainer;
