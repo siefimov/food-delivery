@@ -9,7 +9,6 @@ import CartFoodItem from '../components/CartFoodItem';
 import Button from '../components/Button';
 import UserForm from '../components/UserForm';
 import Map from '../components/Map';
-// import MapContainer from '../components/MapContainer';
 
 const CartShop = () => {
   const dispatch = useDispatch();
@@ -94,9 +93,8 @@ const CartShop = () => {
 
   return (
     <>
-      <div className='flex gap-5 p-5'>
+      <div className='flex flex-wrap gap-5 p-5 lg:flex-nowrap'>
         <div className='flex flex-col'>
-          {/* <Map /> */}
           <Map address={user.address} handleAddressChange={handleAddressChange} />
           <UserForm
             name={user.name}
@@ -107,7 +105,7 @@ const CartShop = () => {
           />
         </div>
 
-        <div className='mb-24 h-[100vh] basis-[60%] overflow-y-scroll rounded border p-5'>
+        <div className='mb-24 h-[100vh] w-[100vw] basis-full overflow-y-scroll rounded border p-5 md:basis-[60%]'>
           <h2 className='mb-4 text-center text-2xl'>Shopping Cart</h2>
           <ul className='mb-8 flex flex-col gap-8'>
             {cartFood.length > 0
@@ -126,7 +124,7 @@ const CartShop = () => {
               : 'Your Cart is empty.'}
           </ul>
 
-          <div className='flex items-center justify-between'>
+          <div className='flex flex-wrap items-center justify-between'>
             <Button title='Clear Cart' onClick={handleClearCart} />
             <div className='my-5 flex items-center justify-end gap-5'>
               <p className='text-2xl '>Total: ${orderSum}</p>

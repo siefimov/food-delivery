@@ -29,7 +29,7 @@ const ShopFoodList = ({ selectedBrand }) => {
   }, [dispatch, selectedBrand]);
 
   return (
-    <div className='flex h-[90vh] basis-[75%] justify-center overflow-y-auto rounded border bg-slate-50 px-12 py-12'>
+    <div className='flex h-[90vh] basis-full md:basis-[75%] justify-center overflow-y-auto rounded border bg-slate-50 px-12 py-12'>
       {filteredFood.length > 0 ? (
         <ul className='flex flex-wrap justify-center gap-14 '>
           {filteredFood?.map((foodItem, index) => (

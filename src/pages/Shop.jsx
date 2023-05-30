@@ -7,7 +7,7 @@ const Shop = () => {
   const [selectedBrand, setSelectedBrand] = useState('');
 
   return (
-    <div className='m-5 flex gap-5 '>
+    <div className='m-5 flex flex-wrap md:flex-nowrap gap-5 '>
       <ShopSideBar setSelectedBrand={setSelectedBrand} />
       <ShopFoodList selectedBrand={selectedBrand} />
     </div>

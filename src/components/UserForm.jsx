@@ -2,7 +2,7 @@ import Input from './Input';
 
 const UserForm = ({ name, email, tel, address, onChange }) => {
   return (
-    <div className='h-fit basis-[40%] rounded border bg-slate-50 py-5'>
+    <div className='h-fit basis-full rounded border bg-slate-50 py-5 md:basis-[40%]'>
       <Input type='text' id='name' name='name' title='Name' value={name} onChange={onChange} />
       <Input type='email' id='email' name='email' title='Email' value={email} onChange={onChange} />
       <Input type='tel' id='phone' name='tel' title='Phone' value={tel} onChange={onChange} />

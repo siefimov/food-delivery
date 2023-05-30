@@ -4,7 +4,6 @@ import { GoogleMap, Marker, LoadScript } from '@react-google-maps/api';
 const API_KEY = import.meta.env.VITE_API_KEY;
 
 const MapContainer = ({ address, handleAddressChange }) => {
-  // const [address, setAddress] = useState('');
   const [coordinates, setCoordinates] = useState(null);
 
   const containerStyle = {

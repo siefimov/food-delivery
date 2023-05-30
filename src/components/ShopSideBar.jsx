@@ -21,7 +21,7 @@ const ShopSideBar = ({ setSelectedBrand }) => {
   };
 
   return (
-    <div className='flex h-fit basis-[25%] flex-col items-center gap-3 rounded border bg-slate-50 px-5 pb-12 pt-5'>
+    <div className='flex h-fit basis-full flex-col items-center gap-3 rounded border bg-slate-50 px-5 pb-12 pt-5 md:basis-[25%]'>
       <h2 className='mb-3 font-bold'>Shops:</h2>
       {shops.map((shop, index) => (
         <ShopBrand
