@@ -7,8 +7,8 @@ const MapContainer = ({ address, handleAddressChange }) => {
   const [coordinates, setCoordinates] = useState(null);
 
   const containerStyle = {
-    width: '500px',
-    height: '350px',
+    maxWidth: '500px',
+    height: '250px',
   };
 
   const handleGeocode = async () => {

@@ -94,7 +94,7 @@ const CartShop = () => {
   return (
     <>
       <div className='flex flex-wrap gap-5 p-5 lg:flex-nowrap'>
-        <div className='flex flex-col'>
+        <div className='flex flex-col w-full'>
           <Map address={user.address} handleAddressChange={handleAddressChange} />
           <UserForm
             name={user.name}

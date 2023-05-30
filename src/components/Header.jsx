@@ -8,7 +8,7 @@ const Header = () => {
   const counter = useSelector((state) => state.cart.cart.length);
 
   return (
-    <div className=' w-full bg-slate-200 px-12 py-5'>
+    <div className='relative w-full bg-slate-200 px-12 py-5'>
       <NavLink to='/' className={setActive}>
         Shop
       </NavLink>

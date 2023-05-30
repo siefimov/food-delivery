@@ -31,7 +31,7 @@ const CartFoodItem = ({ imageUrl, title, price, onClick, qty, setQty }) => {
   };
 
   return (
-    <li className='relative flex flex-wrap w-full rounded-xl border bg-slate-50 p-5'>
+    <li className='relative flex w-full flex-wrap rounded-xl border bg-slate-50 p-3 md:p-5'>
       <div
         onClick={onClick}
         title='Delete'
